@@ -36,7 +36,8 @@ local function build_cjk_combo_font(fallback_order)
     if current_locale == "ru" then
         serif[#serif+1] = "friz_quadrata"
     end
-    local machine_medium = current_locale and FontDefinitions.locale_specific_fonts[current_locale].machine_medium
+    local current_locale_font = current_locale and FontDefinitions.locale_specific_fonts[current_locale]
+    local machine_medium = current_locale_font and current_locale_font["machine_medium"]
 
     for _, lang in ipairs(fallback_order) do
         sans_serif[#sans_serif+1] = "noto_sans_" .. lang .. "_bold"
