@@ -1,5 +1,7 @@
 local mod = get_mod("show_cjk_glyphs")
 
+local FontDefinitions = require("scripts/managers/ui/ui_fonts_definitions")
+
 local function get_fallback_order()
     local q = {
         mod:get("q_zh_hans"),
@@ -27,7 +29,6 @@ end
 local FONT_TYPES = table.enum("serif", "sans_serif")
 
 local function build_cjk_combo_font(fallback_order)
-    local machine_medium = "noto_sans_" .. fallback_order[1] .. "_black"
     local sans_serif = {}
     local serif = {}
 
@@ -35,6 +36,7 @@ local function build_cjk_combo_font(fallback_order)
     if current_locale == "ru" then
         serif[#serif+1] = "friz_quadrata"
     end
+    local machine_medium = current_locale and FontDefinitions.locale_specific_fonts[current_locale].machine_medium
 
     for _, lang in ipairs(fallback_order) do
         sans_serif[#sans_serif+1] = "noto_sans_" .. lang .. "_bold"
